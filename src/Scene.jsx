@@ -1,17 +1,17 @@
 import { useRef } from 'react';
-import { Canvas, useLoader } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
 import {
   TextureLoader,
   DoubleSide,
   NearestFilter,
   RepeatWrapping,
 } from 'three';
+import { Canvas, useLoader } from '@react-three/fiber';
+import { OrbitControls } from '@react-three/drei';
 import { Teapot } from './Teapot';
 
 export default function Scene() {
   const teapot = useRef();
-  const texture = useLoader(TextureLoader, '/checkered.png');
+  const texture = useLoader(TextureLoader, '/checkerboard.png');
   texture.minFilter = NearestFilter;
   texture.magFilter = NearestFilter;
   texture.wrapS = texture.wrapT = RepeatWrapping;
@@ -28,16 +28,19 @@ export default function Scene() {
     >
       <OrbitControls />
 
-      <spotLight
-        position={[5, 10, 5]}
-        intensity={1}
+      {/* Lights */}
+      <directionalLight
+        position={[3, 10, 5]}
+        intensity={3.5}
         castShadow
-        shadow-mapSize-width={2048}
-        shadow-mapSize-height={2048}
-        shadow-bias={-0.001}
+        shadow-mapSize-width={4096}
+        shadow-mapSize-height={4096}
+        // shadow-bias={-0.0005}
+        // shadow-radius={0}
       />
       <ambientLight intensity={0.25} />
 
+      {/* Objects */}
       <Teapot
         ref={teapot}
         position={[0, 0.4, 2]}
@@ -49,7 +52,7 @@ export default function Scene() {
         receiveShadow
       >
         <planeGeometry args={[30, 20]} />
-        <meshStandardMaterial side={DoubleSide} map={texture} color="#aaaaaa" />
+        <meshStandardMaterial side={DoubleSide} map={texture} color="#998888" />
       </mesh>
     </Canvas>
   );
