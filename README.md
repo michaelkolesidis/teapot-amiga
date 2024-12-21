@@ -1,4 +1,4 @@
-# Teapot Amiga
+# 🫖 Teapot Amiga
 
 ![Scene](./screenshots/screenshot.png)
 
